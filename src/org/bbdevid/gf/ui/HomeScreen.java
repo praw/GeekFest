@@ -8,8 +8,10 @@ import net.rim.device.api.ui.Field;
 import net.rim.device.api.ui.FieldChangeListener;
 import net.rim.device.api.ui.UiApplication;
 import net.rim.device.api.ui.XYEdges;
+import net.rim.device.api.ui.component.BitmapField;
 import net.rim.device.api.ui.container.HorizontalFieldManager;
 import net.rim.device.api.ui.container.MainScreen;
+import net.rim.device.api.ui.container.VerticalFieldManager;
 import net.rim.device.api.ui.decor.BackgroundFactory;
 
 /**
@@ -21,10 +23,15 @@ public final class HomeScreen extends MainScreen {
      * Creates a new HomeScreen object
      */
     public HomeScreen() {        
-    	this.getMainManager().setBackground(BackgroundFactory.createBitmapBackground(
-    			Bitmap.getBitmapResource("img/homeBG.jpg")));
+    	int c1 = 0xE6E6E6;
+		int c2 = 0xD0D0D0;
+		int c3 = 0xE1E1E1;
+		int c4 = 0xC2C2C2;
+		
+		getMainManager().setBackground(BackgroundFactory.createLinearGradientBackground(c1, c2, c3, c4));
     	
-    	HorizontalFieldManager menu = new HorizontalFieldManager(Field.USE_ALL_WIDTH);
+    	VerticalFieldManager vfm = new VerticalFieldManager();
+		HorizontalFieldManager menu = new HorizontalFieldManager(Field.USE_ALL_WIDTH);
         
         //menu component
         BitmapButtonField scheduleButton = new BitmapButtonField("img/scheduleButtonActive.png", 
@@ -87,6 +94,10 @@ public final class HomeScreen extends MainScreen {
         menu.setPadding(new XYEdges(833/10000*Display.getHeight(), 46875/100000*Display.getWidth(), 
         		0, 46875/100000*Display.getWidth()));
         
-        add(menu);
+        HorizontalFieldManager logo = new HorizontalFieldManager(Field.FIELD_RIGHT);
+        logo.add(new BitmapField(Bitmap.getBitmapResource("logoBG.png")));
+        
+        vfm.add(menu);
+        vfm.add(logo);
     }
 }
